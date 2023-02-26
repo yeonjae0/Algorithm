@@ -1,27 +1,20 @@
-def keep(n, m):
-    memo[0] = n
-    memo[1] = m
+N = int(input())
+ans = []  # 리스트를 담을 리스트
 
-    j = 2
+for i in range(1, N+1):
+    lst = []  # 두번쨰 수에 따라 바뀔 리스트
+    lst.append(N)
+    lst.append(i)
+    t = 0
     while True:
-        memo[j] = memo[j - 2] - memo[j - 1]
-        if memo[j] < 0:
-            return (j, memo)
-        j += 1
-
-num = int(input())
-half = num//2 + 1
-memo = [0] * 30000
-
-mx = 0
-mx_lst = 0
-for h in range(half, num + 1):
-    result = keep(num, h)
-    if result[0] >= mx:
-        mx = result[0]
-        mx_lst = result[1][:]
-
-mx_lst = mx_lst[:mx]
-
-print(mx)
-print(*mx_lst)
+        tmp = lst[t] - lst[t+1]
+        if tmp >= 0:
+            lst.append(tmp)
+            t += 1
+        else:
+            ans.append(lst)
+            break
+#print(ans)
+max_len_ans = max(ans, key=len)
+print(len(max_len_ans))
+print(*max_len_ans)
